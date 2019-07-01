@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/beige.css">
+    <title>前端面试题（一）</title>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h1>block</h1>
+                <h3>相关知识点</h3>
+            </section>
+            <section>
+                <h3>block元素特点：</h3>
+                <ul>
+                    <li>1、每个块级元素都从新的一行开始，并且其后的元素也另起一行。</li>
+                    <li>2、元素的高度、宽度、行高以及顶和底边距都可设置</li>
+                    <li>3、元素宽度在不设置的情况下，是它本身父容器的100%（和父元素的宽度一致），除非设定一个宽度。</li>
+                </ul>
+            </section>
+            <section>
+                <h2>block垂直居中</h2>
+            </section>
+            <section>
+                <section data-markdown>
+                    <script type="text/template">
+                        兼容IE10 及以上游览器，移动端，推荐使用
+                        #### html
+                        ```
+                        <div class="parent">
+                            <div class="son">元素内容</div>
+                        </div>
+                        ```
+                        #### css
+                        ```
+                        .parent { 
+                            display: flex;
+                            height: 400px;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                        .son { 
+                            width: 200px;
+                            height: 200px;
+                        }
+                        ```
+                    </script>
+                </section>
+            </section>
+
+            <section>
+                <section data-markdown>
+                    <script type="text/template">
+                        兼容所有浏览器，但已经不是block元素，也已经跟不上前端发展的潮流
+                        #### html
+                        ```
+                        <div class="parent">
+                            <div class="son">元素内容</div>
+                        </div>
+                        ```
+                        #### css
+                        ```
+                        .parent { 
+                            display: table;
+                            width：800px;
+                            height: 200px;
+                        }
+                        .son {
+                            display: table-cell;
+                            width: 100px; 
+                            height: 100px;
+                            vertical-align: middle;
+                        }
+                        ```
+                    </script>
+                </section>
+            </section>
+
+            <section>
+                <section data-markdown>
+                    <script type="text/template">
+                        兼容IE10 及以上游览器
+                        #### html
+                        ```
+                        <div class="parent">
+                            <div class="son">元素内容</div>
+                        </div>
+                        ```
+                        #### css
+                        ```
+                        .parent {
+                            position: relative; 
+                        }
+                        .son { 
+                            width: 100px; 
+                            height: 100px;
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                        }
+                        ```
+                    </script>
+                </section>
+            </section>
+            <section>
+                <h3>事件委托(事件代理)</h3>
+                <dl>
+                    <dt>优点：</dt>
+                    <dd>1.可以大量节省内存占用，减少事件注册。</dd>
+                    <dd>2.可以实现当新增子对象时，无需再对其进行事件绑定</dd>
+                </dl>
+                <dl>
+                    <dt>缺点：</dt>
+                    <dd>事件代理的常用应用应该仅限于上述需求，如果把所有事件都用事件代理，可能会出现事件误判。即本不该被触发的事件被绑定上了事件。</dd>
+                </dl>
+            </section>
+            <section>
+                <section data-markdown>
+                    <script type="text/template">
+                        #### html
+                        ```
+                        <div class="parent">
+                            <div class="child">0</div>
+                            <div class="child">1</div>
+                            <div class="child">2</div>
+                            <div class="child">3</div>
+                            <div class="child">4</div>
+                        </div>
+                        ```
+                        #### JS
+                        ```
+                        var oParent = document.querySelector('.parent')
+                        var oChildren = oParent.querySelectorAll('.son')
+                        oParent.onclick = function(e) {
+                            var clses = e.target.className.split(' ');
+                            if (clses.includes('a')) {
+                                alert('a');
+                            }
+                        }
+                        ```
+                    </script>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="js/lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+            // More info https://github.com/hakimel/reveal.js#dependencies
+            dependencies: [
+                { src: 'js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'js/plugin/search/search.js', async: true },
+                { src: 'js/plugin/zoom-js/zoom.js', async: true },
+                { src: 'js/plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+</body>
+</html>
